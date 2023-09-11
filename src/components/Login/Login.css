@@ -1,0 +1,20 @@
+.login-page{
+    height: 100vh;
+   background-image: url('../../Assets//background-login.jpg');
+   background-size: cover;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.login-page form{
+    background-color: transparent;
+    backdrop-filter: blur(25px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
+}
