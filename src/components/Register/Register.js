@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import './Register.css'
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import axios from 'axios'
+import Cookies from "js-cookie";
 
 export default function Register() {
 
@@ -17,6 +18,8 @@ export default function Register() {
     const [rePassword,setRePassword] = useState("")
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const naviagte = useNavigate()
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -34,6 +37,12 @@ export default function Register() {
             console.log(res)
         }).catch(err => console.log(err))
     }
+    useEffect(() => {
+        const token = Cookies.get("jwt_token")
+        if (token) {
+            naviagte("/home")
+        }
+    },[])
 
 
 
