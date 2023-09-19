@@ -1,5 +1,5 @@
 import Cookies from "js-cookie"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import './Home.css'
 import { useNavigate } from "react-router-dom"
 import image1 from '../../Assets/cut.png'
@@ -13,14 +13,15 @@ import { Dropdown, Space } from 'antd';
 import * as Icon from 'react-bootstrap-icons'
 import carousal2 from '../../Assets/elite-matchmaking-banner-2.png'
 import lastCarousal from '../../Assets/last-carousal.jpg'
+import payment from '../../Assets/payment.jpeg'
 
 const items = [
     {
         key: '1',
         label: (
             <div className="d-flex justify-content-start align-items-center">
-                <input id="bridegroom" type="checkbox" name="select" value={"bridegroom"} />
-                <label htmlFor="bridegroom">Bride</label>
+                <input id="bride" type="checkbox" name="select" value={"bridegroom"} />
+                <label htmlFor="bride">Bride</label>
             </div>
 
         ),
@@ -50,6 +51,8 @@ const contentStyle = {
 
 export default function Home() {
 
+    const [status,setStatus]  = useState(false)
+
     const naviagte = useNavigate()
 
     const fetchData = () => {
@@ -57,6 +60,11 @@ export default function Home() {
         if (!token) {
             naviagte('/')
         }
+    }
+
+    const handleLogout = () => {
+        Cookies.remove("jwt_token")
+        naviagte('/', { replace: true })
     }
 
     useEffect(() => {
@@ -108,7 +116,8 @@ export default function Home() {
                 </a>
             </Dropdown>
 
-                <Icon.PersonCircle height={30} width={30}/>
+            <Icon.PersonCircle height={30} width={30} />
+            <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
         </nav>
         <div className="d-flex justify-content-center">
             <marquee>BANU PRASAD MARRIAGE BEURO</marquee>
@@ -119,7 +128,7 @@ export default function Home() {
                     <h3>Conatct Info : </h3>
                     <p>SREE KANAKA MAHAA LAXMEE ENTERPRISES</p>
                     <p>Contact Name : A . Prasad Babu</p>
-                    <p>Mobile : 9866335626, 9440615601</p>
+                    <p>Mobile : 9247698323, 9440615601</p>
                     <span><b>Reg No : 37AFAFS9665L1Z7</b></span>
                 </div>
             </div>
@@ -140,8 +149,14 @@ export default function Home() {
                 </Carousel>
             </div>
 
-            <div className="info-content1">
-                <div>
+            <div className="d-flex flex-column align-items-center gap-5">
+                <div className="d-flex flex-column align-items-center gap-2">
+                    {status && <div>
+                        <img src={payment} alt="payment" className="payment-image"/>
+                        </div>}
+                    {status ? <button className="btn btn-danger" onClick={() => setStatus(false)}>Close</button> : <button className="btn btn-success" onClick={() => setStatus(true)}>View QR</button>}
+                </div>
+                <div className="info-content1">
                     <h3>Meeting your life partner is one click away</h3>
                 </div>
             </div>

@@ -71,7 +71,7 @@ nav {
     width: 90%;
     max-width: 400px;
     padding: 10px;
-    border-radius: 20px;
+    border-radius:10px;
     border: 1px solid white;
     outline: none;
 }
@@ -96,6 +96,13 @@ nav {
     width: 90%;
     max-width: 700px;
 }
+
+.payment-image{
+    width: 250px;
+    height: 350px;
+    border-radius: 15px;
+}
+
 @media screen and (max-width: 1500px ) {
     .mahalaxmi{
         display: none;
