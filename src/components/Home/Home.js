@@ -4,8 +4,7 @@ import './Home.css'
 import { useNavigate } from "react-router-dom"
 import image1 from '../../Assets/cut.png'
 import ganesh from '../../Assets/ganesh.jfif'
-import sitaram from '../../Assets/sitaram kalyanam.jfif'
-import mahalaxmi from '../../Assets/mahalaxmi.jfif'
+import sitaram from '../../Assets/sitaram kalyanam.jpg'
 import corousal1 from '../../Assets/corousal1.jpg'
 import { Carousel } from 'antd';
 import { DownOutlined, SmileOutlined } from '@ant-design/icons';
@@ -14,6 +13,7 @@ import * as Icon from 'react-bootstrap-icons'
 import carousal2 from '../../Assets/elite-matchmaking-banner-2.png'
 import lastCarousal from '../../Assets/last-carousal.jpg'
 import payment from '../../Assets/payment.jpeg'
+import axios from "axios"
 
 const items = [
     {
@@ -51,7 +51,8 @@ const contentStyle = {
 
 export default function Home() {
 
-    const [status,setStatus]  = useState(false)
+    const [status, setStatus] = useState(false)
+    const [profile, setProfile] = useState([])
 
     const naviagte = useNavigate()
 
@@ -60,6 +61,10 @@ export default function Home() {
         if (!token) {
             naviagte('/')
         }
+        axios.get("http://localhost:4000/profile").then((res) => {
+            setProfile(res.data)
+            console.log(res.data)
+        }).catch(err => console.log(err))
     }
 
     const handleLogout = () => {
@@ -73,7 +78,7 @@ export default function Home() {
 
     return <div className="bottom-container">
         <div className="mahalaxmi">
-            <img src={mahalaxmi} alt="5" className="images-1" />
+            <img src={"https://i0.wp.com/hindupad.com/wp-content/uploads/2014/11/Kanakamahalakshmi-Temple-Vizag-6-no-watermark.jpg?fit=467%2C702&ssl=1"} alt="5" className="images-1" />
         </div>
 
         <div className="d-flex justify-content-center top-content">
@@ -152,8 +157,8 @@ export default function Home() {
             <div className="d-flex flex-column align-items-center gap-5">
                 <div className="d-flex flex-column align-items-center gap-2">
                     {status && <div>
-                        <img src={payment} alt="payment" className="payment-image"/>
-                        </div>}
+                        <img src={payment} alt="payment" className="payment-image" />
+                    </div>}
                     {status ? <button className="btn btn-danger" onClick={() => setStatus(false)}>Close</button> : <button className="btn btn-success" onClick={() => setStatus(true)}>View QR</button>}
                 </div>
                 <div className="info-content1">
@@ -162,22 +167,14 @@ export default function Home() {
             </div>
         </div>
         <div className="profiles" >
-            <div className="cards">
-                <img src={sitaram} alt={"4"} />
-                <p>Sitaram</p>
-            </div>
-            <div className="cards">
-                <img src={sitaram} alt={"4"} />
-                <p>Sitaram</p>
-            </div>
-            <div className="cards">
-                <img src={sitaram} alt={"4"} />
-                <p>Sitaram</p>
-            </div>
-            <div className="cards">
-                <img src={sitaram} alt={"4"} />
-                <p>Sitaram</p>
-            </div>
+            {profile.map((each) => {
+                return <div className="cards" key={each._id}>
+                    <img src={`data:image/jpeg;base64,${each.imageData}`} alt={each.imageName} />
+
+                    <p><b>Name :  </b>{each.name}</p>
+                    <p><b>Age :  </b>{each.age}</p>
+                </div>
+            })}
         </div>
     </div>
 }

@@ -35,7 +35,7 @@ export default function Login() {
             console.log(res)
             if (res.data.token) {
                 const {token} = res.data
-                Cookies.set("jwt_token",token,1)
+                Cookies.set("jwt_token",token,10)
                 naviagte('/home',{replace:true})
             }
 
