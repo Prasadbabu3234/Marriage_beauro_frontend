@@ -75,7 +75,7 @@ export default function Home() {
         if (!token) {
             naviagte('/')
         }
-        axios.get("http://localhost:4000/profile").then((res) => {
+        axios.get("https://marriagebeuro.onrender.com/profile").then((res) => {
             setProfile(res.data)
             setLoader(false)
         }).catch(err => console.log(err))

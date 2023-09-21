@@ -50,7 +50,7 @@ export default function Register() {
             mobile,
             password
         }
-        axios.post('http://localhost:4000/register', data).then((res) => {
+        axios.post('https://marriagebeuro.onrender.com/register', data).then((res) => {
             if (res.data === "account created") {
                 setLoader(false)
                 Modal.success({
