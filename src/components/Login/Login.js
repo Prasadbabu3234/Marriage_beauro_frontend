@@ -45,7 +45,6 @@ export default function Login() {
             password
         }
         axios.post('http://localhost:4000/login', data).then((res) => {
-            console.log(res)
             if (res.data.token) {
                 const { token } = res.data
                 Cookies.set("jwt_token", token, 10)
@@ -55,7 +54,6 @@ export default function Login() {
 
         }).catch(err => {
             if (err.response.status === 403) {
-                console.log(err.response.data.message)
                 setError(err.response.data.message)
 
             }

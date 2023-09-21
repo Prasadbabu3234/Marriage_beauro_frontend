@@ -51,14 +51,14 @@ export default function Register() {
             password
         }
         axios.post('http://localhost:4000/register', data).then((res) => {
-            console.log(res)
-            if (res.status === 200) {
+            if (res.data === "account created") {
                 setLoader(false)
                 Modal.success({
-                    content : "Successfully registered",
+                    content: "Successfully registered",
                     centered: true,
-                    onOk: success,
-                    okText:"Go to Login"
+                    okText: "Go to Login",
+                    onOk: success(),
+
                 })
             }
         }).catch(err => console.log(err))
