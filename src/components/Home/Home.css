@@ -31,6 +31,7 @@ marquee {
 .bottom-container {
     background-image: url("https://img.freepik.com/premium-photo/luxury-wedding-concept-wedding-rings-flowers_23-2148652001.jpg?w=2000");
     background-size: cover;
+    min-height: 100vh;
 }
 
 .info-content {

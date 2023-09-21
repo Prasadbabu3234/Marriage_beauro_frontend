@@ -14,6 +14,18 @@ import carousal2 from '../../Assets/elite-matchmaking-banner-2.png'
 import lastCarousal from '../../Assets/last-carousal.jpg'
 import payment from '../../Assets/payment.jpeg'
 import axios from "axios"
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+
+const antIcon = (
+    <LoadingOutlined
+        style={{
+            fontSize: 40,
+        }}
+        spin
+    />
+);
+
 
 const items = [
     {
@@ -53,17 +65,19 @@ export default function Home() {
 
     const [status, setStatus] = useState(false)
     const [profile, setProfile] = useState([])
+    const [loader, setLoader] = useState(false)
 
     const naviagte = useNavigate()
 
     const fetchData = () => {
+        setLoader(true)
         const token = Cookies.get("jwt_token")
         if (!token) {
             naviagte('/')
         }
         axios.get("http://localhost:4000/profile").then((res) => {
             setProfile(res.data)
-            console.log(res.data)
+            setLoader(false)
         }).catch(err => console.log(err))
     }
 
@@ -167,14 +181,17 @@ export default function Home() {
             </div>
         </div>
         <div className="profiles" >
-            {profile.map((each) => {
-                return <div className="cards" key={each._id}>
-                    <img src={`data:image/jpeg;base64,${each.imageData}`} alt={each.imageName} />
+            {loader ? <Spin indicator={antIcon} /> : <div>{
+                profile.map((each) => {
+                    return <div className="cards" key={each._id}>
+                        <img src={`data:image/jpeg;base64,${each.imageData}`} alt={each.imageName} />
 
-                    <p><b>Name :  </b>{each.name}</p>
-                    <p><b>Age :  </b>{each.age}</p>
-                </div>
-            })}
+                        <p><b>Name :  </b>{each.name}</p>
+                        <p><b>Age :  </b>{each.age}</p>
+                    </div>
+                })
+            }</div>}
+
         </div>
     </div>
 }
