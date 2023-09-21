@@ -55,6 +55,7 @@ export default function Login() {
         }).catch(err => {
             if (err.response.status === 403) {
                 setError(err.response.data.message)
+                setLoader(false)
 
             }
         })
