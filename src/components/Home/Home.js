@@ -76,7 +76,7 @@ export default function Home() {
         if (!token) {
             naviagte('/')
         }
-        axios.get(`${baseUrl}/profile`).then((res) => {
+        axios.get(`${baseUrl}/profiles`).then((res) => {
             setProfile(res.data)
             setLoader(false)
         }).catch(err => console.log(err))
@@ -189,6 +189,7 @@ export default function Home() {
 
                         <p><b>Name :  </b>{each.name}</p>
                         <p><b>Job :  </b>{each.occupation}</p>
+                        <button className="btn btn-success" onClick={() => naviagte(`/profile/${each._id}`)}>View Profile</button>
                     </div>
                 })
             }</div>}
