@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './Register.css'
+import { baseUrl } from "../../url";
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
@@ -50,7 +51,7 @@ export default function Register() {
             mobile,
             password
         }
-        axios.post('https://marriagebeuro.onrender.com/register', data).then((res) => {
+        axios.post(`${baseUrl}/register`, data).then((res) => {
             if (res.data === "account created") {
                 setLoader(false)
                 Modal.success({

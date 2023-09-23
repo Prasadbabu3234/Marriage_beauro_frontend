@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './Login.css'
+import { baseUrl } from "../../url";
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
@@ -44,7 +45,7 @@ export default function Login() {
             mobile,
             password
         }
-        axios.post('https://marriagebeuro.onrender.com/login', data).then((res) => {
+        axios.post(`${baseUrl}/login`, data).then((res) => {
             if (res.data.token) {
                 const { token } = res.data
                 Cookies.set("jwt_token", token, 10)

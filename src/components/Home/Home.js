@@ -1,5 +1,6 @@
 import Cookies from "js-cookie"
 import React, { useEffect, useState } from "react"
+import { baseUrl } from "../../url"
 import './Home.css'
 import { useNavigate } from "react-router-dom"
 import image1 from '../../Assets/cut.png'
@@ -75,7 +76,7 @@ export default function Home() {
         if (!token) {
             naviagte('/')
         }
-        axios.get("https://marriagebeuro.onrender.com/profile").then((res) => {
+        axios.get(`${baseUrl}/profile`).then((res) => {
             setProfile(res.data)
             setLoader(false)
         }).catch(err => console.log(err))
@@ -187,7 +188,7 @@ export default function Home() {
                         <img src={`data:image/jpeg;base64,${each.imageData}`} alt={each.imageName} />
 
                         <p><b>Name :  </b>{each.name}</p>
-                        <p><b>Age :  </b>{each.age}</p>
+                        <p><b>Job :  </b>{each.occupation}</p>
                     </div>
                 })
             }</div>}
