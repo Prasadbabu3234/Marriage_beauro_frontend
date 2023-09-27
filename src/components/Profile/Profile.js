@@ -142,7 +142,8 @@ export default function Profile() {
                         </tr>
                     </tbody>
                 </table>
-                <button className="btn btn-success">Request phone call</button>
+                <button className="btn btn-success">Request phone call</button> 
+                <div> Or Call to the mobile number mentioned in the home page for further details</div>
             </div>}
     </div>
 }
