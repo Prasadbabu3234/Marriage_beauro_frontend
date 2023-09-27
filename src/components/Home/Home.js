@@ -28,6 +28,20 @@ const antIcon = (
 );
 
 
+const castes = [
+    "Brahmin",
+    "Kapu",
+    "Reddy",
+    "Raju",
+    "Balija",
+    "Velama",
+    "Jogi",
+    "Kamma",
+    "Yadav"
+]
+
+
+
 const items = [
     {
         key: '1',
@@ -61,6 +75,16 @@ const contentStyle = {
     background: '#364d79',
     borderRadius: "20px"
 };
+const imageStyle = {
+    height: '300px',
+    width: "100%",
+    color: '#fff',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: '#364d79',
+    borderRadius: "20px"
+}
 
 export default function Home() {
 
@@ -77,6 +101,7 @@ export default function Home() {
             naviagte('/')
         }
         axios.get(`${baseUrl}/profiles`).then((res) => {
+            console.log(res.data)
             setProfile(res.data)
             setLoader(false)
         }).catch(err => console.log(err))
@@ -123,18 +148,12 @@ export default function Home() {
                     </Space>
                 </a>
             </Dropdown>
-            <Dropdown
-                menu={{
-                    items,
-                }}
-            >
-                <a onClick={(e) => e.preventDefault()}>
-                    <Space style={{ color: "white" }}>
-                        Caste
-                        <DownOutlined />
-                    </Space>
-                </a>
-            </Dropdown>
+           <select className="dropdown-caste">
+            <option hidden>Select Caste</option>
+            {castes.map((each) => {
+                return <option value={each} key={each}>{each}</option>
+            })}
+           </select>
 
             <Icon.PersonCircle height={30} width={30} />
             <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
@@ -168,7 +187,6 @@ export default function Home() {
                     </div>
                 </Carousel>
             </div>
-
             <div className="d-flex flex-column align-items-center gap-5">
                 <div className="d-flex flex-column align-items-center gap-2">
                     {status && <div>
@@ -184,16 +202,25 @@ export default function Home() {
         <div className="profiles" >
             {loader ? <Spin indicator={antIcon} /> : <div>{
                 profile.map((each) => {
+                    const { imageData } = each
                     return <div className="cards" key={each._id}>
-                        <img src={`data:image/jpeg;base64,${each.imageData}`} alt={each.imageName} />
 
+                        <div style={{width:"250px"}}>
+                            <Carousel autoplay>
+                                {imageData.map((eachImage) => {
+                                    return <div>
+                                        <img src={eachImage} alt={each.imageName} style={imageStyle} />
+                                    </div>
+                                })}
+
+                            </Carousel>
+                        </div>
                         <p><b>Name :  </b>{each.name}</p>
                         <p><b>Job :  </b>{each.occupation}</p>
                         <button className="btn btn-success" onClick={() => naviagte(`/profile/${each._id}`)}>View Profile</button>
                     </div>
                 })
             }</div>}
-
         </div>
     </div>
 }

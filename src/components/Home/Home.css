@@ -105,6 +105,15 @@ nav {
     border-radius: 15px;
 }
 
+.dropdown-caste{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+.dropdown-caste option{
+    color: black;
+}
+
 @media screen and (max-width: 1500px ) {
     .mahalaxmi{
         display: none;

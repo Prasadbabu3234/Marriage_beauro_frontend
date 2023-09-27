@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import * as Icon from 'react-bootstrap-icons'
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { Carousel, Spin } from 'antd';
 
 const antIcon = (
     <LoadingOutlined
@@ -16,6 +16,16 @@ const antIcon = (
     />
 );
 
+const imageStyle = {
+    height: '300px',
+    width: "100%",
+    color: '#fff',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: '#364d79',
+    borderRadius: "20px"
+}
 
 
 export default function Profile() {
@@ -43,7 +53,17 @@ export default function Profile() {
             <div className="profile-card">
                 <div className="d-flex align-items-center gap-2 back-button" onClick={() => navigate('/home')}><Icon.ChevronLeft /><span>back</span></div>
                 <h1>Profile details</h1>
-                <img src={`data:image/jpeg;base64,${data.imageData}`} alt={data.name} />
+
+                <div style={{ width: "250px" }}>
+                    <Carousel autoplay>
+                        {data.imageData.map((eachImage) => {
+                            return <div>
+                                <img src={eachImage} alt={eachImage} style={imageStyle} />
+                            </div>
+                        })}
+
+                    </Carousel>
+                </div>
                 <table className="table table-hover" border={"1px"} style={{ width: "100%", maxWidth: "600px", textAlign: "center" }}>
                     <tbody >
                         <tr>
@@ -61,12 +81,12 @@ export default function Profile() {
                             <td colSpan="2">{data.fatherName}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Brother Name</th>
-                            <td colSpan="2">{data.brother}</td>
+                            <th scope="row">Brothers</th>
+                            <td colSpan="2">{data.brothers}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Sister Name</th>
-                            <td colSpan="2">{data.sister}</td>
+                            <th scope="row">Sisters</th>
+                            <td colSpan="2">{data.sisters}</td>
                         </tr>
                         <tr>
                             <th scope="row">DOB</th>
@@ -101,8 +121,24 @@ export default function Profile() {
                             <td colSpan="2">{data.salary} /- per year</td>
                         </tr>
                         <tr>
-                            <th scope="row">Car</th>
+                            <th scope="row">Car or Bike</th>
                             <td colSpan="2">{data.car ? "Available" : "Not available"}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Self property</th>
+                            <td colSpan="2">{data.selfProperty}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Family property</th>
+                            <td colSpan="2">{data.familyProperty}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Requirement for life partner</th>
+                            <td colSpan="2">{data.requirement}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Marriage status</th>
+                            <td colSpan="2">{data.status}</td>
                         </tr>
                     </tbody>
                 </table>
