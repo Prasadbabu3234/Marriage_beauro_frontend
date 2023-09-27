@@ -200,7 +200,7 @@ export default function Home() {
             </div>
         </div>
         <div className="profiles" >
-            {loader ? <Spin indicator={antIcon} /> : <div>{
+            {loader ? <Spin indicator={antIcon} /> : <div className="d-flex gap-5">{
                 profile.map((each) => {
                     const { imageData } = each
                     return <div className="cards" key={each._id}>
